@@ -1,0 +1,28 @@
+{
+  "info": {
+    "name": "SalonBook API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "List Services",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/api/v1/services"
+      }
+    },
+    {
+      "name": "Create Booking",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"service_id\": 1,\n  \"stylist_id\": 1,\n  \"customer_name\": \"Budi\",\n  \"customer_email\": \"budi@example.com\",\n  \"customer_phone\": \"081234567890\",\n  \"scheduled_at\": \"2026-06-01 10:00:00\"\n}"
+        },
+        "url": "{{base_url}}/api/v1/bookings"
+      }
+    }
+  ],
+  "variable": [{ "key": "base_url", "value": "http://127.0.0.1:8000" }]
+}
