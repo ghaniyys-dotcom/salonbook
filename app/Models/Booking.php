@@ -100,7 +100,7 @@ class Booking extends Model
             return false;
         }
 
-        return $this->scheduled_at->diffInHours(now()) >= 2;
+        return abs($this->scheduled_at->diffInHours(now())) >= 2;
     }
 
     public function whatsappUrl(): string

@@ -9,6 +9,7 @@ use App\Models\Stylist;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -25,9 +26,8 @@ class BookingStatusTransitionTest extends TestCase
         parent::setUp();
 
         $this->withoutMiddleware([
-            \Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class,
+            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
         ]);
-
         Mail::fake();
 
         $this->admin = User::factory()->create(['role' => 'admin']);
@@ -44,16 +44,11 @@ class BookingStatusTransitionTest extends TestCase
             ->create();
     }
 
-    private function actingAsAdmin(): void
-    {
-        $this->actingAs($this->admin);
-    }
-
     // ─── Valid Transitions ───────────────────────────────────────
 
     public function test_admin_can_confirm_a_pending_booking(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
 
         $response = $this->patch(route('admin.bookings.status', $this->booking), [
             'status' => 'confirmed',
@@ -68,7 +63,7 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_admin_can_cancel_a_pending_booking(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
 
         $response = $this->patch(route('admin.bookings.status', $this->booking), [
             'status' => 'cancelled',
@@ -83,7 +78,7 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_admin_can_complete_a_confirmed_booking(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
         $this->booking->update(['status' => 'confirmed']);
 
         $response = $this->patch(route('admin.bookings.status', $this->booking), [
@@ -99,7 +94,7 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_admin_can_cancel_a_confirmed_booking(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
         $this->booking->update(['status' => 'confirmed']);
 
         $response = $this->patch(route('admin.bookings.status', $this->booking), [
@@ -132,7 +127,7 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_cannot_change_status_from_completed(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
         $this->booking->update(['status' => 'completed']);
 
         foreach (['pending', 'confirmed', 'cancelled'] as $newStatus) {
@@ -150,7 +145,7 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_cannot_change_status_from_cancelled(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
         $this->booking->update(['status' => 'cancelled']);
 
         foreach (['pending', 'confirmed', 'completed'] as $newStatus) {
@@ -168,7 +163,7 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_cannot_change_from_pending_to_completed_directly(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
 
         $response = $this->patch(route('admin.bookings.status', $this->booking), [
             'status' => 'completed',
@@ -203,11 +198,12 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_customer_can_cancel_their_own_pending_booking(): void
     {
-        $response = $this->post(route('bookings.cancel_client', $this->booking));
+        $bookingId = $this->booking->id;
+        $response = $this->post(route('bookings.cancel_client', $bookingId));
 
         $response->assertRedirect();
         $this->assertDatabaseHas('bookings', [
-            'id' => $this->booking->id,
+            'id' => $bookingId,
             'status' => 'cancelled',
         ]);
     }
@@ -216,7 +212,7 @@ class BookingStatusTransitionTest extends TestCase
     {
         $this->booking->update(['status' => 'confirmed']);
 
-        $response = $this->post(route('bookings.cancel_client', $this->booking));
+        $response = $this->post(route('bookings.cancel_client', $this->booking->id));
 
         $this->assertTrue($response->isRedirect());
         $this->assertDatabaseHas('bookings', [
@@ -229,19 +225,17 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_double_booking_is_prevented_when_confirming_conflicting_slot(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
 
         $otherService = Service::factory()->create(['duration_minutes' => 60, 'is_active' => true]);
         $stylist = $this->booking->stylist;
         $stylist->services()->syncWithoutDetaching([$otherService->id]);
 
-        // Create a conflicting booking at 10:30 for the same stylist
         $conflictingTime = Carbon::parse($this->booking->scheduled_at)->addMinutes(30);
         Booking::factory()->forStylistAndService($stylist, $otherService, $conflictingTime)
             ->pending()
             ->create();
 
-        // Try to confirm original booking — conflicts with new one
         $response = $this->patch(route('admin.bookings.status', $this->booking), [
             'status' => 'confirmed',
         ]);
@@ -257,7 +251,7 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_admin_delete_cancels_booking(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
 
         $response = $this->delete(route('admin.bookings.destroy', $this->booking));
 
@@ -272,7 +266,7 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_status_transition_creates_audit_log(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
 
         $this->patch(route('admin.bookings.status', $this->booking), [
             'status' => 'confirmed',
@@ -287,22 +281,24 @@ class BookingStatusTransitionTest extends TestCase
 
     public function test_customer_cancellation_creates_audit_log(): void
     {
-        $this->post(route('bookings.cancel_client', $this->booking));
+        $bookingId = $this->booking->id;
+        $this->post(route('bookings.cancel_client', $bookingId));
 
         $this->assertDatabaseHas('booking_logs', [
-            'booking_id' => $this->booking->id,
+            'booking_id' => $bookingId,
             'action' => 'cancelled',
         ]);
     }
 
     public function test_admin_destroy_creates_audit_log(): void
     {
-        $this->actingAsAdmin();
+        $this->actingAs($this->admin);
+        $bookingId = $this->booking->id;
 
         $this->delete(route('admin.bookings.destroy', $this->booking));
 
         $this->assertDatabaseHas('booking_logs', [
-            'booking_id' => $this->booking->id,
+            'booking_id' => $bookingId,
             'action' => 'cancelled',
             'user_id' => $this->admin->id,
         ]);
