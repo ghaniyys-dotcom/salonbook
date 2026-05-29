@@ -24,20 +24,20 @@
 }
 
 @layer components {
-    /* ——— Brass Line System ——— */
+    /* ——— Rose Noir Gold Line System ——— */
     .brass-line {
         height: 1px;
-        background: linear-gradient(90deg, rgba(245, 158, 11, 0.3) 0%, rgba(245, 158, 11, 0.05) 100%);
+        background: linear-gradient(90deg, rgba(212, 184, 150, 0.3) 0%, rgba(212, 184, 150, 0.05) 100%);
     }
     .brass-line-vertical {
         width: 1px;
-        background: linear-gradient(180deg, rgba(245, 158, 11, 0.3) 0%, rgba(245, 158, 11, 0) 100%);
+        background: linear-gradient(180deg, rgba(212, 184, 150, 0.3) 0%, rgba(212, 184, 150, 0) 100%);
     }
     .brass-border {
-        border: 1px solid rgba(245, 158, 11, 0.15);
+        border: 1px solid rgba(212, 184, 150, 0.15);
     }
     .brass-border-bottom {
-        border-bottom: 1px solid rgba(245, 158, 11, 0.15);
+        border-bottom: 1px solid rgba(212, 184, 150, 0.15);
     }
     .brass-corner {
         position: relative;

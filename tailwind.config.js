@@ -9,51 +9,51 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                /* ——— Surface Hierarchy ——— */
+                /* ——— Rose Noir Surface Hierarchy ——— */
                 lacquer: {
-                    DEFAULT: '#050505',
-                    light: '#0a0a0a',
+                    DEFAULT: '#1A1220',
+                    light: '#2A1F30',
                 },
                 charcoal: {
-                    50: '#f0f0ee',
-                    100: '#d6d5d1',
-                    200: '#adaba4',
-                    300: '#848176',
-                    400: '#5b5749',
-                    500: '#3d3a30',
-                    600: '#2b2921',
-                    700: '#1f1e18',
-                    800: '#161513',
-                    900: '#0d0d0b',
-                    950: '#080807',
+                    50: '#f5f0e8',
+                    100: '#ede5d9',
+                    200: '#ddd0b8',
+                    300: '#c9b496',
+                    400: '#a89070',
+                    500: '#7a6850',
+                    600: '#5a4538',
+                    700: '#3d2c28',
+                    800: '#2a1f20',
+                    900: '#1f1618',
+                    950: '#120c10',
                 },
-                /* Burnished brass — muted amber for structure */
+                /* Rose Noir Gold — warm muted gold */
                 brass: {
-                    50: '#fcf8ee',
-                    100: '#f6edcd',
-                    200: '#edda9c',
-                    300: '#e2c36a',
-                    400: '#d4a83f',
-                    500: '#b88b2a',
-                    600: '#9a7224',
-                    700: '#7d5d20',
-                    800: '#68501f',
-                    900: '#5a4520',
+                    50: '#faf8f0',
+                    100: '#f5f0d8',
+                    200: '#ede5c0',
+                    300: '#dcc9a0',
+                    400: '#d4b896',
+                    500: '#c9a96e',
+                    600: '#b8944f',
+                    700: '#9a7a38',
+                    800: '#7d6530',
+                    900: '#6a5528',
                 },
-                /* Soft ivory — premium highlight */
-                ivory: {
-                    50: '#fdfdfb',
-                    100: '#faf8f2',
-                    200: '#f5f0e3',
-                    300: '#ede4cc',
-                    400: '#ddd0b0',
+                /* Cream — premium highlight */
+                cream: {
+                    50: '#fdfcf9',
+                    100: '#faf8f5',
+                    200: '#f5f0e8',
+                    300: '#ede5d9',
+                    400: '#ddd0b8',
                     500: '#c9b89a',
                     600: '#b0987a',
                     700: '#8f7a61',
                     800: '#756452',
                     900: '#635345',
                 },
-                /* Dusty rose-gold whisper — beauty accent */
+                /* Dusty rose — beauty accent */
                 'rose-gold': {
                     50: '#fdf2f4',
                     100: '#fce4e9',
@@ -66,7 +66,20 @@ module.exports = {
                     800: '#882346',
                     900: '#74223f',
                 },
-            },
+                /* Mauve — dark surface tones */
+                mauve: {
+                    50: '#f8f5f6',
+                    100: '#f0e8eb',
+                    200: '#e0d0d8',
+                    300: '#c9adb8',
+                    400: '#a88090',
+                    500: '#7a6068',
+                    600: '#5a4548',
+                    700: '#3d2c30',
+                    800: '#2a1f20',
+                    900: '#1f1618',
+                    950: '#120c10',
+                },
             fontFamily: {
                 display: ['Playfair Display', 'Georgia', 'serif'],
                 sans: ['Inter', 'system-ui', 'sans-serif'],

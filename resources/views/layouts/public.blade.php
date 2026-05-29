@@ -51,16 +51,16 @@
         }
         .brass-line {
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.4), transparent);
         }
         .brass-line-vertical {
             width: 1px;
-            background: linear-gradient(180deg, transparent, rgba(245, 158, 11, 0.3), transparent);
+            background: linear-gradient(180deg, transparent, rgba(201, 169, 110, 0.3), transparent);
         }
         .brass-corner {
             position: absolute;
             width: 16px; height: 16px;
-            border-color: rgba(245, 158, 11, 0.3);
+            border-color: rgba(201, 169, 110, 0.3);
         }
         .brass-corner-tl { top: 0; left: 0; border-top: 1px solid; border-left: 1px solid; }
         .brass-corner-tr { top: 0; right: 0; border-top: 1px solid; border-right: 1px solid; }
@@ -91,27 +91,27 @@
         /* Section divider — brass rule */
         .section-rule {
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.25), transparent);
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.25), transparent);
             margin: 0 auto;
             max-width: 80px;
         }
     </style>
 </head>
-<body class="font-sans antialiased bg-[#050505] text-zinc-100 selection:bg-amber-500/30 selection:text-amber-300 overflow-x-hidden" x-data="{ scrolled: false, mobileOpen: false }" @scroll.window="scrolled = window.scrollY > 50">
+<body class="font-sans antialiased bg-[#1A1220] text-cream-50 selection:bg-[#C9A96E]/30 selection:text-[#DCC9A0] overflow-x-hidden" x-data="{ scrolled: false, mobileOpen: false }" @scroll.window="scrolled = window.scrollY > 50">
 
     {{-- Page Transition Overlay — Premium Curtain --}}
-    <div id="page-loader" class="fixed inset-0 bg-[#050505] z-[9999] pointer-events-auto" 
+    <div id="page-loader" class="fixed inset-0 bg-[#1A1220] z-[9999] pointer-events-auto" 
          style="transform: translateY(0); transition: transform 0.75s cubic-bezier(0.85, 0, 0.15, 1); will-change: transform;">
         {{-- Glowing Gold Laser Border on both edges --}}
-        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-amber-500 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)]"></div>
-        <div class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-amber-500 to-transparent shadow-[0_0_12px_rgba(245,158,11,0.6)]"></div>
+        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#C9A96E] to-transparent shadow-[0_0_12px_rgba(201,169,110,0.6)]"></div>
+        <div class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#C9A96E] to-transparent shadow-[0_0_12px_rgba(201,169,110,0.6)]"></div>
     </div>
 
     {{-- Toast Container --}}
     <div x-data="{ toasts: [] }" @toast.window="toasts.push({ id: Date.now(), ...$event.detail }); setTimeout(() => toasts.shift(), 4000)" class="fixed top-6 right-4 z-[100] space-y-2">
         <template x-for="toast in toasts" :key="toast.id">
             <div x-show="true" x-transition:enter="toast-enter" x-transition:leave="toast-leave"
-                :class="toast.type === 'success' ? 'bg-amber-500 text-black' : toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-zinc-800 text-white'"
+                :class="toast.type === 'success' ? 'bg-[#C9A96E] text-[#1A1220]' : toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-mauve-800 text-white'"
                 class="px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 min-w-[280px]">
                 <template x-if="toast.type === 'success'">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -129,20 +129,20 @@
         :class="scrolled ? '!py-3.5' : ''">
         <div class="max-w-5xl mx-auto px-4 transition-all duration-500"
              :class="scrolled ? 'max-w-4xl' : ''">
-            <div class="relative transition-all duration-500 ease-in-out px-6 py-3 flex items-center justify-between rounded-full border border-amber-500/10 shadow-2xl backdrop-blur-2xl bg-zinc-950/50 shadow-black/80"
-                 :class="scrolled ? 'bg-zinc-950/90 border-amber-500/20 py-2' : ''">
+            <div class="relative transition-all duration-500 ease-in-out px-6 py-3 flex items-center justify-between rounded-full border border-[#C9A96E]/10 shadow-2xl backdrop-blur-2xl bg-[#1A1220]/80 shadow-black/80"
+                 :class="scrolled ? 'bg-[#1A1220]/90 border-[#C9A96E]/20 py-2' : ''">
 
                 {{-- Logo --}}
                 <a href="{{ route('home') }}" class="flex items-center gap-2.5 group">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-400 flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-105 transition-transform">
-                        <span class="text-black font-extrabold text-sm">G</span>
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#D4B896] flex items-center justify-center shadow-lg shadow-[#C9A96E]/25 group-hover:scale-105 transition-transform">
+                        <span class="text-[#1A1220] font-extrabold text-sm">G</span>
                     </div>
-                    <span class="font-bold text-sm tracking-widest uppercase transition-colors text-white hover:text-amber-400" style="font-family: 'Playfair Display', serif;">Glow Studio</span>
+                    <span class="font-bold text-sm tracking-widest uppercase transition-colors text-cream-50 hover:text-[#D4B896]" style="font-family: 'Playfair Display', serif;">Glow Studio</span>
                 </a>
 
                 {{-- Nav links --}}
                 <nav class="hidden md:flex items-center gap-1 text-xs font-semibold uppercase tracking-wider relative" x-data="{ hoverLeft: 0, hoverWidth: 0, showLine: false }" @mouseleave="showLine = false">
-                    <div class="absolute bottom-1 h-px bg-amber-500/60 transition-all duration-300 ease-out rounded-full pointer-events-none"
+                    <div class="absolute bottom-1 h-px bg-[#C9A96E]/60 transition-all duration-300 ease-out rounded-full pointer-events-none"
                          :style="`left: ${hoverLeft}px; width: ${hoverWidth}px; opacity: ${showLine ? 1 : 0};`">
                     </div>
 
@@ -156,7 +156,7 @@
                     @foreach($links as $link)
                         <a href="{{ $link['url'] }}" 
                            @mouseenter="showLine = true; hoverLeft = $el.offsetLeft; hoverWidth = $el.offsetWidth"
-                           class="px-3 py-2 transition-all duration-300 relative text-zinc-400 hover:text-white">
+                           class="px-3 py-2 transition-all duration-300 relative text-cream/40 hover:text-cream-50">
                             {{ $link['name'] }}
                         </a>
                     @endforeach
@@ -165,14 +165,14 @@
                         @if(auth()->user()->canAccessAdmin())
                             <a href="{{ route('admin.dashboard') }}" 
                                @mouseenter="showLine = true; hoverLeft = $el.offsetLeft; hoverWidth = $el.offsetWidth"
-                               class="px-3 py-2 transition-all duration-300 relative text-amber-400 hover:text-white border-l border-zinc-800 ml-1 pl-4">
+                               class="px-3 py-2 transition-all duration-300 relative text-[#C9A96E] hover:text-cream-50 border-l border-mauve-700 ml-1 pl-4">
                                 Dashboard
                             </a>
                         @endif
                         <form method="POST" action="{{ route('logout') }}" class="inline-block relative ml-2">
                             @csrf
                             <button type="submit" 
-                                    class="px-3 py-2 transition-all duration-300 text-zinc-500 hover:text-rose-400 cursor-pointer text-xs font-semibold">
+                                    class="px-3 py-2 transition-all duration-300 text-cream/40 hover:text-rose-400 cursor-pointer text-xs font-semibold">
                                 Keluar
                             </button>
                         </form>
@@ -181,13 +181,13 @@
 
                 {{-- Booking CTA — minimal, no gradient border --}}
                 <a href="{{ route('home') }}#layanan" 
-                   class="group hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-md active:scale-95 duration-300 bg-amber-500 hover:bg-amber-400 text-black shadow-amber-500/15">
+                   class="group hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-md active:scale-95 duration-300 bg-[#C9A96E] hover:bg-[#D4B896] text-[#1A1220] shadow-[#C9A96E]/15">
                     <span>Booking</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
 
                 {{-- Mobile Hamburger Button --}}
-                <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 rounded-xl text-zinc-400 hover:text-white transition-colors" aria-label="Menu">
+                <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 rounded-xl text-cream/40 hover:text-cream-50 transition-colors" aria-label="Menu">
                     <svg x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     <svg x-show="mobileOpen" x-cloak xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
@@ -201,23 +201,23 @@
                  x-transition:leave="transition ease-in duration-200"
                  x-transition:leave-start="opacity-100 translate-y-0"
                  x-transition:leave-end="opacity-0 -translate-y-4"
-                 class="md:hidden mt-2 bg-zinc-950/95 backdrop-blur-2xl border border-zinc-800 rounded-2xl p-5 space-y-1 shadow-2xl">
+                 class="md:hidden mt-2 bg-zinc-950/95 backdrop-blur-2xl border border-mauve-700 rounded-2xl p-5 space-y-1 shadow-2xl">
                 
-                <a href="{{ route('home') }}" @click="mobileOpen = false" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-zinc-300 hover:text-white hover:bg-white/5 transition-all">
+                <a href="{{ route('home') }}" @click="mobileOpen = false" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-cream/30 hover:text-cream-50 hover:bg-white/5 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                     Beranda
                 </a>
-                <a href="{{ route('home') }}#layanan" @click="mobileOpen = false" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-zinc-300 hover:text-white hover:bg-white/5 transition-all">
+                <a href="{{ route('home') }}#layanan" @click="mobileOpen = false" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-cream/30 hover:text-cream-50 hover:bg-white/5 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
                     Layanan
                 </a>
-                <a href="{{ route('bookings.track_form') }}" @click="mobileOpen = false" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-zinc-300 hover:text-white hover:bg-white/5 transition-all">
+                <a href="{{ route('bookings.track_form') }}" @click="mobileOpen = false" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-cream/30 hover:text-cream-50 hover:bg-white/5 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     Lacak Booking
                 </a>
                 @auth
                     @if(auth()->user()->canAccessAdmin())
-                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-amber-400 hover:text-white hover:bg-white/5 transition-all border-t border-zinc-800 mt-2 pt-3">
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-amber-400 hover:text-white hover:bg-white/5 transition-all border-t border-mauve-700 mt-2 pt-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5z"/></svg>
                             Dashboard Admin
                         </a>
@@ -234,7 +234,7 @@
     {{-- Flash Messages --}}
     @if(session('success'))
         <div x-data="{ show: true }" x-init="setTimeout(() => { $dispatch('toast', { type: 'success', message: '{{ session('success') }}' }); show = false; }, 100)" x-show="show" class="fixed top-6 right-4 z-[100]">
-            <div class="bg-amber-500 text-black px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 font-bold">
+            <div class="bg-[#C9A96E] text-[#1A1220] px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                 {{ session('success') }}
             </div>
@@ -252,23 +252,23 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="col-span-2">
                     <div class="flex items-center gap-2 mb-3">
-                        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-400 flex items-center justify-center">
-                            <span class="text-black font-bold text-xs">G</span>
+                        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#D4B896] flex items-center justify-center">
+                            <span class="text-[#1A1220] font-bold text-xs">G</span>
                         </div>
-                        <span class="font-bold text-white text-sm" style="font-family: 'Playfair Display', serif;">Glow Studio</span>
+                        <span class="font-bold text-cream-50 text-sm" style="font-family: 'Playfair Display', serif;">Glow Studio</span>
                     </div>
-                    <p class="text-zinc-500 text-sm max-w-xs leading-relaxed">Premium salon experience. Tanpa antri, tanpa bentrok, tanpa ribet.</p>
+                    <p class="text-cream/40 text-sm max-w-xs leading-relaxed">Premium salon experience. Tanpa antri, tanpa bentrok, tanpa ribet.</p>
                 </div>
                 <div>
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-3">Navigasi</p>
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-cream/30 mb-3">Navigasi</p>
                     <div class="space-y-2 text-sm">
-                        <a href="{{ route('home') }}" class="block text-zinc-400 hover:text-amber-400 transition-colors">Beranda</a>
-                        <a href="{{ route('home') }}#layanan" class="block text-zinc-400 hover:text-amber-400 transition-colors">Layanan</a>
-                        <a href="{{ route('bookings.track_form') }}" class="block text-zinc-400 hover:text-amber-400 transition-colors">Lacak Booking</a>
+                        <a href="{{ route('home') }}" class="block text-cream/40 hover:text-[#C9A96E] transition-colors">Beranda</a>
+                        <a href="{{ route('home') }}#layanan" class="block text-cream/40 hover:text-[#C9A96E] transition-colors">Layanan</a>
+                        <a href="{{ route('bookings.track_form') }}" class="block text-cream/40 hover:text-[#C9A96E] transition-colors">Lacak Booking</a>
                     </div>
                 </div>
                 <div>
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-3">Kontak</p>
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-cream/30 mb-3">Kontak</p>
                     <div class="space-y-2 text-sm text-zinc-400">
                         <p>Jl. Kecantikan No. 1</p>
                         <p>Jakarta</p>
@@ -276,7 +276,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-10 pt-5 border-t border-zinc-900 text-center text-xs text-zinc-600">
+            <div class="mt-10 pt-5 border-t border-mauve-700 text-center text-xs text-cream/30">
                 &copy; {{ date('Y') }} Glow Studio
             </div>
         </div>
@@ -418,10 +418,10 @@
 
             const dot = document.createElement('div');
             dot.id = 'cursor-dot';
-            dot.className = 'fixed pointer-events-none rounded-full border border-amber-500/40 z-[9997] hidden md:block';
+            dot.className = 'fixed pointer-events-none rounded-full border border-[#C9A96E]/40 z-[9997] hidden md:block';
             dot.style.width = '8px';
             dot.style.height = '8px';
-            dot.style.background = 'rgba(245, 158, 11, 0.15)';
+            dot.style.background = 'rgba(201, 169, 110, 0.15)';
             dot.style.transform = 'translate(-50%, -50%) translate3d(0, 0, 0)';
             dot.style.transition = 'width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s';
             dot.style.willChange = 'transform';
@@ -478,13 +478,13 @@
         // Golden Click Ripples
         document.addEventListener('click', function(e) {
             const ripple = document.createElement('div');
-            ripple.className = 'fixed pointer-events-none rounded-full border border-amber-500/30 z-[9998]';
+            ripple.className = 'fixed pointer-events-none rounded-full border border-[#C9A96E]/30 z-[9998]';
             ripple.style.width = '10px';
             ripple.style.height = '10px';
             ripple.style.left = `${e.clientX}px`;
             ripple.style.top = `${e.clientY}px`;
             ripple.style.transform = 'translate(-50%, -50%) scale(1)';
-            ripple.style.background = 'radial-gradient(circle, rgba(245, 158, 11, 0.15), transparent 75%)';
+            ripple.style.background = 'radial-gradient(circle, rgba(201, 169, 110, 0.15), transparent 75%)';
             ripple.style.transition = 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
             ripple.style.willChange = 'transform, opacity';
             document.body.appendChild(ripple);
